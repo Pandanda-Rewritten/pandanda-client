@@ -143,6 +143,7 @@
       "asarUnpack": [
         "lib/libpepflashplayer.so"
       ],
+      "maintainer": "Pandanda Open Source Team",
       "target": [
         {
           "target": "deb",
