@@ -1,0 +1,45 @@
+FROM node:16
+
+# Install dependencies for building native modules and Linux packaging
+RUN apt-get update && apt-get install -y \
+    python3 \
+    make \
+    g++ \
+    git \
+    libnss3-dev \
+    libatk-bridge2.0-dev \
+    libdrm-dev \
+    libxcomposite-dev \
+    libxdamage-dev \
+    libxrandr-dev \
+    libgbm-dev \
+    libxss-dev \
+    libasound2-dev \
+    libgtk-3-dev \
+    fonts-liberation \
+    xdg-utils \
+    libappindicator3-1 \
+    rpm \
+    fakeroot \
+    && rm -rf /var/lib/apt/lists/*
+
+WORKDIR /app
+
+# Copy package files
+COPY package*.json ./
+
+# Install dependencies
+RUN npm ci
+
+# Copy source code
+COPY . .
+
+# Build for Linux (generates .deb, .rpm, .AppImage, .tar.gz)
+RUN npm run build:linux
+
+# The built files will be in /app/dist/
+# Outputs include:
+# - .deb (Debian/Ubuntu)
+# - .rpm (RedHat/Fedora/CentOS)
+# - .AppImage (Universal Linux)
+# - .tar.gz (Portable archive)

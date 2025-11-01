@@ -1,0 +1,264 @@
+{
+  "name": "pandanda-client",
+  "productName": "Open Source Pandanda",
+  "version": "1.0.0",
+  "description": "Open Source Pandanda Client",
+  "main": "src/main.js",
+  "scripts": {
+    "start": "electron-forge start",
+    "build": "electron-builder",
+    "build:win": "electron-builder --win",
+    "build:mac": "electron-builder --mac",
+    "build:linux": "electron-builder --linux",
+    "build:all": "electron-builder --win --mac --linux"
+  },
+  "keywords": [
+    "pandanda",
+    "game",
+    "electron",
+    "desktop",
+    "flash",
+    "client"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/pandandarewritten/pandanda-client.git"
+  },
+  "homepage": "http://localhost",
+  "bugs": {
+    "url": "https://github.com/pandandarewritten/pandanda-client/issues"
+  },
+  "authors": [
+    {
+      "name": "Open Source Pandanda Team",
+      "email": ""
+    }
+  ],
+  "author": "Open Source Pandanda Team",
+  "license": "MIT",
+  "config": {
+    "forge": {
+      "packagerConfig": {
+        "icon": "lib/icons/icon.ico",
+        "ignore": [
+          "\\.git",
+          "node_modules/(?!.*\\.(dll|so|dylib))",
+          "README\\.md"
+        ]
+      },
+      "makers": [
+        {
+          "name": "@electron-forge/maker-squirrel",
+          "config": {
+            "iconUrl": "lib/icons/icon.ico",
+            "setupIcon": "lib/icons/icon.ico"
+          }
+        }
+      ]
+    }
+  },
+  "build": {
+    "publish": null,
+    "files": [
+      "src/",
+      "lib/**/*",
+      "package.json",
+      "package-lock.json",
+      "!node_modules/*/{CHANGELOG.md,README.md,README,readme.md,readme,*.md}",
+      "!node_modules/*/rc-edit",
+      "!node_modules/rc-edit",
+      "!node_modules/@electron-builder/*/rc-edit",
+      "!resources/app.asar.unpacked/node_modules/rcedit",
+      "!resources/app.asar.unpacked/node_modules/*"
+    ],
+    "extraResources": [
+      {
+        "from": "./lib/icons/",
+        "to": "lib/icons",
+        "filter": [
+          "**/*"
+        ]
+      },
+      {
+        "from": "./lib/pepflashplayer.dll",
+        "to": "lib/pepflashplayer.dll"
+      },
+      {
+        "from": "./lib/libpepflashplayer.so",
+        "to": "lib/libpepflashplayer.so"
+      },
+      {
+        "from": "./lib/PepperFlashPlayer.plugin",
+        "to": "lib/PepperFlashPlayer.plugin"
+      }
+    ],
+    "appId": "com.ospandanda.flashclient",
+    "productName": "Open Source Pandanda Client",
+    "copyright": "Copyright © 2025 Open Source Pandanda Client",
+    "icon": "lib/icons/icon.png",
+    "win": {
+      "icon": "lib/icons/icon.ico",
+      "asarUnpack": [
+        "lib/**/*.dll"
+      ],
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        },
+        {
+          "target": "zip",
+          "arch": [
+            "x64"
+          ]
+        }
+      ]
+    },
+    "mac": {
+      "icon": "lib/icons/icon.icns",
+      "asarUnpack": [
+        "lib/PepperFlashPlayer.plugin"
+      ],
+      "target": [
+        {
+          "target": "dmg",
+          "arch": [
+            "x64",
+            "arm64"
+          ]
+        },
+        {
+          "target": "zip",
+          "arch": [
+            "x64",
+            "arm64"
+          ]
+        }
+      ]
+    },
+    "linux": {
+      "icon": "lib/icons/icon.png",
+      "asarUnpack": [
+        "lib/libpepflashplayer.so"
+      ],
+      "target": [
+        {
+          "target": "deb",
+          "arch": [
+            "x64"
+          ]
+        },
+        {
+          "target": "rpm",
+          "arch": [
+            "x64"
+          ]
+        },
+        {
+          "target": "AppImage",
+          "arch": [
+            "x64"
+          ]
+        },
+        {
+          "target": "tar.gz",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "category": "Utility"
+    },
+    "directories": {
+      "buildResources": "lib"
+    }
+  },
+  "makers": [
+    {
+      "name": "@electron-forge/maker-squirrel",
+      "config": {
+        "setupIcon": "lib/icons/icon.ico"
+      },
+      "platforms": [
+        "win32"
+      ]
+    },
+    {
+      "name": "@electron-forge/maker-zip",
+      "platforms": [
+        "win32",
+        "darwin",
+        "linux"
+      ]
+    },
+    {
+      "name": "@electron-forge/maker-dmg",
+      "config": {
+        "icon": "lib/icons/icon.icns"
+      },
+      "platforms": [
+        "darwin"
+      ]
+    },
+    {
+      "name": "@electron-forge/maker-deb",
+      "config": {
+        "options": {
+          "maintainer": "Open Source Pandanda Team",
+          "homepage": "https://github.com/Pandanda-Rewritten/pandanda-client"
+        }
+      },
+      "platforms": [
+        "linux"
+      ]
+    },
+    {
+      "name": "@electron-forge/maker-rpm",
+      "config": {
+        "options": {
+          "maintainer": "Open Source Pandanda Team",
+          "homepage": "https://github.com/Pandanda-Rewritten/pandanda-client"
+        }
+      },
+      "platforms": [
+        "linux"
+      ]
+    },
+    {
+      "name": "@electron-forge/maker-appx",
+      "config": {
+        "identityName": "com.ospandanda.flashclient",
+        "packageDisplayName": "Open Source Pandanda",
+        "packageDescription": "Open Source Pandanda Client",
+        "assets": "lib/icons/icon.ico"
+      },
+      "platforms": [
+        "win32"
+      ]
+    }
+  ],
+  "dependencies": {
+    "@electron-forge/maker-flatpak": "^6.0.0-beta.64",
+    "async-dialog": "0.0.1",
+    "dialogs": "^2.0.1",
+    "discord-rpc": "^4.0.1",
+    "electron-prompt": "^1.6.0",
+    "electron-squirrel-startup": "^1.0.0",
+    "update-electron-app": "^2.0.1"
+  },
+  "devDependencies": {
+    "@electron-forge/cli": "^6.0.0-beta.54",
+    "@electron-forge/maker-appx": "^6.0.0-beta.54",
+    "@electron-forge/maker-base": "6.0.0-beta.64",
+    "@electron-forge/maker-deb": "^6.0.0-beta.54",
+    "@electron-forge/maker-dmg": "^6.0.0-beta.54",
+    "@electron-forge/maker-rpm": "^7.8.1",
+    "@electron-forge/maker-squirrel": "^6.0.0-beta.54",
+    "@electron-forge/maker-zip": "^6.0.0-beta.54",
+    "@electron-forge/publisher-github": "^6.0.0-beta.54",
+    "electron": "11.1.1",
+    "electron-builder": "^26.0.12"
+  }
+}
