@@ -61,7 +61,6 @@
     "publish": null,
     "files": [
       "src/",
-      "lib/**/*",
       "package.json",
       "package-lock.json",
       "!node_modules/*/{CHANGELOG.md,README.md,README,readme.md,readme,*.md}",
@@ -73,23 +72,8 @@
     ],
     "extraResources": [
       {
-        "from": "./lib/icons/",
-        "to": "lib/icons",
-        "filter": [
-          "**/*"
-        ]
-      },
-      {
-        "from": "./lib/pepflashplayer.dll",
-        "to": "lib/pepflashplayer.dll"
-      },
-      {
-        "from": "./lib/libpepflashplayer.so",
-        "to": "lib/libpepflashplayer.so"
-      },
-      {
-        "from": "./lib/PepperFlashPlayer.plugin",
-        "to": "lib/PepperFlashPlayer.plugin"
+        "from": "./lib",
+        "to": "lib"
       }
     ],
     "appId": "com.ospandanda.flashclient",
@@ -99,7 +83,7 @@
     "win": {
       "icon": "lib/icons/icon.ico",
       "asarUnpack": [
-        "lib/**/*.dll"
+        "lib/**/*"
       ],
       "target": [
         {
