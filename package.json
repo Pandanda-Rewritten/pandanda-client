@@ -58,11 +58,7 @@
     }
   },
   "build": {
-    "publish": {
-      "provider": "github",
-      "owner": "pandandarewritten",
-      "repo": "pandanda-client"
-    },
+    "publish": null,
     "files": [
       "src/",
       "lib/**/*",
