@@ -1,5 +1,6 @@
 const { app, BrowserWindow, globalShortcut, session } = require('electron')
 const path = require('path')
+const { initializeUpdater, setupUpdateHandlers } = require('./updater')
 
 if (require('electron-squirrel-startup')) 
 {
@@ -96,7 +97,8 @@ const createWindow = () =>
 			contextIsolation: true,     // Add this for isolation
 			enableRemoteModule: false,  // Add this line to disable
 			nodeIntegration: false,      // Add this to disable Node access
-			webSecurity: true  // Add this for explicit security
+			webSecurity: true,  // Add this for explicit security
+			preload: path.join(__dirname, 'preload.js')  // Load preload script
 		}
 	})
 	mainWindow.webContents.on('new-window', function(e, url) 
@@ -116,6 +118,10 @@ app.on('ready', function ()
         // to disable the shortcut, you can just return false
         return false;
     });
+	
+	// Initialize automatic updates and IPC handlers
+	initializeUpdater();
+	setupUpdateHandlers();
 	
 	createWindow()
 })
